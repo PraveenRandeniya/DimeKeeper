@@ -6,6 +6,9 @@ void main() {
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        scaffoldBackgroundColor: Color(0xFFDFF8FF),
+      ),
       home: OnBoardinScreen(),
     ),
   );

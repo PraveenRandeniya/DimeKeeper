@@ -7,15 +7,22 @@ import 'package:intl/intl.dart';
 import 'package:dimekeeper/components/buttonstyle.dart';
 import 'package:dimekeeper/components/textboxstyle.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
+
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  Color appBarColor = Colors.transparent;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: appBarColor,
         title: Text(
           DateFormat('E,MMMM d').format(DateTime.now()),
           style: TextBlackStyleTopNavHeading(),
@@ -29,157 +36,163 @@ class SignUpScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.only(
-                top: 10.0, bottom: 10.0, left: 20.0, right: 20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Sign in",
-                  style: TextRichBlueHeadingStyle(),
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                Text(
-                  "Email",
-                  style: TextGrayStyleLabelHeading(),
-                ),
-                SizedBox(
-                  height: 5.0,
-                ),
-                TextField(
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: TextBoxStyleBasic(
-                    myHintText: "Enter your email",
+      body: NotificationListener<ScrollNotification>(
+        onNotification: (ScrollNotification notification) {
+          if (notification is ScrollUpdateNotification) {
+            setState(() {
+              appBarColor = notification.metrics.pixels > 0
+                  ? Color(0xFFDFF8FF)
+                  : Colors.transparent;
+            });
+          }
+          return false;
+        },
+        child: SingleChildScrollView(
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  top: 10.0, bottom: 10.0, left: 20.0, right: 20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Sign up",
+                    style: TextRichBlueHeadingStyle(),
                   ),
-                  // make outline border color gray
-                  style: TextStyle(
-                    color: Color(0xFF868686),
+                  SizedBox(
+                    height: 20.0,
                   ),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Text("Password", style: TextGrayStyleLabelHeading()),
-                SizedBox(
-                  height: 5.0,
-                ),
-                TextField(
-                  obscureText: true,
-                  decoration: TextBoxStyleBasic(
+                  Text(
+                    "Name",
+                    style: TextGrayStyleLabelHeading(),
+                  ),
+                  SizedBox(
+                    height: 5.0,
+                  ),
+                  TextField(
+                    keyboardType: TextInputType.name,
+                    decoration: TextBoxStyleBasic(
+                      myHintText: "Enter your name",
+                    ),
+                    style: TextStyle(
+                      color: Color(0xFF868686),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Text(
+                    "Last Name",
+                    style: TextGrayStyleLabelHeading(),
+                  ),
+                  SizedBox(
+                    height: 5.0,
+                  ),
+                  TextField(
+                    keyboardType: TextInputType.name,
+                    decoration: TextBoxStyleBasic(
+                      myHintText: "Enter your last name",
+                    ),
+                    style: TextStyle(
+                      color: Color(0xFF868686),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Text(
+                    "Email",
+                    style: TextGrayStyleLabelHeading(),
+                  ),
+                  SizedBox(
+                    height: 5.0,
+                  ),
+                  TextField(
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: TextBoxStyleBasic(
+                      myHintText: "Enter your email",
+                    ),
+                    style: TextStyle(
+                      color: Color(0xFF868686),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Text(
+                    "Password",
+                    style: TextGrayStyleLabelHeading(),
+                  ),
+                  SizedBox(
+                    height: 5.0,
+                  ),
+                  TextField(
+                    obscureText: true,
+                    decoration: TextBoxStyleBasic(
                       myHintText: "Enter your password",
                       mySuffixIcon: IconButton(
-                          onPressed: () {}, icon: Icon(Icons.visibility))),
-                  // make outline border color gray
-                  style: TextStyle(
-                    color: Color(0xFF868686),
+                        onPressed: () {},
+                        icon: Icon(Icons.visibility),
+                      ),
+                    ),
+                    style: TextStyle(
+                      color: Color(0xFF868686),
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Row(
-                  children: [
-                    // checkbox
-                    Expanded(
-                      child: Row(
-                        children: [
-                          Checkbox(value: true, onChanged: (value) {}),
-                          Text(
-                            "Remember me",
-                            style: TextGrayStyleMinorLabel(),
-                          ),
-                        ],
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Text(
+                    "Confirm Password",
+                    style: TextGrayStyleLabelHeading(),
+                  ),
+                  SizedBox(
+                    height: 5.0,
+                  ),
+                  TextField(
+                    obscureText: true,
+                    decoration: TextBoxStyleBasic(
+                      myHintText: "Confirm your password",
+                      mySuffixIcon: IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.visibility),
                       ),
                     ),
-                    Expanded(
-                      child: Text(
-                        "Forgot password?",
+                    style: TextStyle(
+                      color: Color(0xFF868686),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  PrimaryButtonWidget(
+                    mybuttonText: "Sign up",
+                    mybuttonFunction: () {},
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Already have an account?",
+                        style: TextGrayStyleMinorLabel(),
+                      ),
+                      SizedBox(
+                        width: 5.0,
+                      ),
+                      Text(
+                        "Sign in",
                         style: TextRichBlueStyle(),
-                        textAlign: TextAlign.right,
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                PrimaryButtonWidget(
-                  mybuttonText: "Sign in",
-                  mybuttonFunction: () {},
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Don't have an account?",
-                      style: TextGrayStyleMinorLabel(),
-                    ),
-                    SizedBox(
-                      width: 5.0,
-                    ),
-                    Text(
-                      "Create now",
-                      style: TextRichBlueStyle(),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Divider(
-                        color: Color(0xFF868686),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    Text(
-                      "or",
-                      style: TextGrayStyleMinorLabel(),
-                    ),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    Expanded(
-                      child: Divider(
-                        color: Color(0xFF868686),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                SocialMediaButtons(
-                  myIcon: SvgPicture.asset('images/google.svg'),
-                  myText: "Sign in with Google",
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                SocialMediaButtons(
-                  myIcon: SvgPicture.asset('images/apple.svg'),
-                  myText: "Sign in with Apple",
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                SocialMediaButtons(
-                  myIcon: SvgPicture.asset('images/facebook.svg'),
-                  myText: "Sign in with Facebook",
-                ),
-              ],
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

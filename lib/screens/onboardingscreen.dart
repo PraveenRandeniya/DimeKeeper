@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:dimekeeper/data/onboardingcontent.dart';
-import 'package:dimekeeper/components/textmainstyle.dart';
+import 'package:dimekeeper/components/textstyle.dart';
+import 'package:expandable_page_view/expandable_page_view.dart';
+import 'package:dimekeeper/components/buttonstyle.dart';
 
 class OnBoardinScreen extends StatefulWidget {
   OnBoardinScreen({super.key});
@@ -36,12 +38,11 @@ class _OnBoardinScreenState extends State<OnBoardinScreen> {
       backgroundColor: Color(0xFFDFF8FF),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(15.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Expanded(
-                flex: 2,
-                child: PageView.builder(
+              ExpandablePageView.builder(
                   controller: _controller,
                   onPageChanged: (int index) {
                     setState(() {
@@ -53,42 +54,20 @@ class _OnBoardinScreenState extends State<OnBoardinScreen> {
                     return Column(
                       children: [SvgPicture.asset(content[i].image)],
                     );
-                  },
-                ),
-              ),
-              Container(
-                height: 50,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Color(0xFF125A93),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: TextButton(
-                  child: Text(
+                  }),
+              PrimaryButtonWidget(
+                mybuttonText:
                     currentIndex == content.length - 1 ? "Get Started" : "Next",
-                    style: TextMainStyle(
-                      color: Color(0xFFDFF8FF),
-                    ),
-                  ),
-                  onPressed: () {
-                    if (currentIndex == content.length - 1) {}
-                    _controller.nextPage(
-                        duration: Duration(milliseconds: 100),
-                        curve: Curves.bounceIn);
-                  },
-                ),
-              ),
-              SizedBox(
-                height: 10.0,
+                mybuttonFunction: () {
+                  if (currentIndex == content.length - 1) {}
+                  _controller.nextPage(
+                      duration: Duration(milliseconds: 100),
+                      curve: Curves.bounceIn);
+                },
               ),
               Text(
                 currentIndex == content.length - 1 ? "" : "Skip",
-                style: TextMainStyle(
-                  color: Color(0xFF125A93),
-                ),
-              ),
-              SizedBox(
-                height: 50.0,
+                style: TextRichBlueStyle(),
               ),
             ],
           ),

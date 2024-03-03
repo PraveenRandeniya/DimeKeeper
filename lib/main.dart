@@ -1,7 +1,8 @@
 import 'package:dimekeeper/screens/onboardingscreen.dart';
-import 'package:dimekeeper/screens/signupscreen.dart';
+import 'package:dimekeeper/screens/signinscreen.dart';
 import 'package:dimekeeper/screens/splashscreen.dart';
 import 'package:flutter/material.dart';
+import 'package:dimekeeper/screens/signupscreen.dart';
 
 void main() {
   runApp(
